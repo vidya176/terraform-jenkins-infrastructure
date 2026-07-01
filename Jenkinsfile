@@ -1,1 +1,33 @@
+pipeline {
+    agent any
+
+
+    stages {
+        stage('checkout') {
+            steps {
+                git 'https://github.com/devopsbyraham/terraform-project.git'
+            }
+        }
+        stage('init') {
+            steps {
+                sh 'terraform init'
+            }
+        }
+        stage('validate') {
+            steps {
+                sh 'terraform validate'                
+            }
+        }
+        stage('plan') {
+            steps {
+                sh 'terraform plan'
+            }
+        }
+        stage('action') {
+            steps {
+                sh 'terraform $action --auto-approve'
+            }
+        }
+    }
+}
 
